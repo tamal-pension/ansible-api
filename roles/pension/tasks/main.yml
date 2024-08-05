@@ -1,0 +1,6 @@
+---
+- include_tasks: apps_installation.yml
+
+#- include_tasks: sync_logs.yml
+
+- include_tasks: start_service.yml

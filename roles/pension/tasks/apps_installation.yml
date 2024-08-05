@@ -1,0 +1,40 @@
+---
+- name: create apps base folder
+  file:
+    path: "{{ apps_full_path }}"
+    owner: "pension"
+    group: "pension"
+    mode: "41774"
+    state: directory
+
+- name: Copy pension-admin.service 
+  template:
+    src: pension.service.j2
+    dest: /etc/systemd/system/pension-admin.service
+  vars: 
+    app_folder: "{{ pension_app_admin_base_path }}"
+    description_name: "Pension Admin"
+
+- name: Copy pension-api.service 
+  template:
+    src: pension.service.j2
+    dest: /etc/systemd/system/pension-api.service
+  vars: 
+    app_folder: "{{ pension_app_api_base_path }}"
+    description_name: "Pension Api"
+
+- name: Copy pension-site.service 
+  template:
+    src: pension.service.j2
+    dest: /etc/systemd/system/pension-site.service
+  vars: 
+    app_folder: "{{ pension_app_site_base_path }}"
+    description_name: "Pension Site"
+
+- name: Recursively change ownership of apps directory
+  ansible.builtin.file:
+    path: "{{ apps_full_path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ user }}"
+    group: "{{ group }}"

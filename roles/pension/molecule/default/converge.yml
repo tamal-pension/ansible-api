@@ -1,0 +1,22 @@
+- name: Fail if molecule group is missing
+  hosts: localhost
+  vars_files:
+    - defaults.yml
+  tasks:
+    - name: Assert group existence
+      ansible.builtin.assert:
+        that: "'molecule' in groups"
+        fail_msg: |
+          molecule group was not found inside inventory groups: {{ groups }}
+
+- name: Converge
+  hosts: molecule
+  gather_facts: false
+  tasks:
+    - name: Check uname
+      ansible.builtin.raw: uname -a
+      register: result
+      changed_when: false
+
+  roles:
+    - role: pension
