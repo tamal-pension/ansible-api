@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Set directories relative to the app_home directory
 APP_HOME=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
@@ -63,11 +64,11 @@ echo "JVM Options: ${LOGGING_OPTS[@]} ${METRICS_OPTS[@]} ${GENERAL_OPTS[@]} ${JM
 
 # Run the Java application
 java \
-  "${LOGGING_OPTS[@]}" \
-  "${METRICS_OPTS[@]}" \
-  "${GENERAL_OPTS[@]}" \
-  "${JMX_OPTS[@]}" \
-  "${MODULE_OPTS[@]}" \
+  ${LOGGING_OPTS[@]} \
+  ${METRICS_OPTS[@]} \
+  ${GENERAL_OPTS[@]} \
+  ${JMX_OPTS[@]} \
+  ${MODULE_OPTS[@]} \
   -classpath "$LIB_DIR/*:$JAR" \
   io.vertx.core.Launcher run com.tamal.pension.api.Server \
   -options "$OPTIONS" \

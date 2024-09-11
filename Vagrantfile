@@ -54,9 +54,9 @@ Vagrant.configure("2") do |config|
     override.vm.allowed_synced_folder_types = [:rsync]
     override.vm.synced_folder ".", "/vagrant", type: :rsync, rsync__exclude: ['.git/','inqwise/'], disabled: false
     common_collection_path = ENV['COMMON_COLLECTION_PATH'] || '~/git/ansible-common-collection'
-    # stacktrek_collection_path = ENV['STACKTREK_COLLECTION_PATH'] || '~/git/ansible-stack-trek'
+    #stacktrek_collection_path = ENV['STACKTREK_COLLECTION_PATH'] || '~/git/ansible-stack-trek'
     override.vm.synced_folder common_collection_path, '/vagrant/collections/ansible_collections/inqwise/common', type: :rsync, rsync__exclude: '.git/', disabled: false
-    # override.vm.synced_folder stacktrek_collection_path, '/vagrant/collections/ansible_collections/inqwise/stacktrek', type: :rsync, rsync__exclude: '.git/', disabled: false
+    #override.vm.synced_folder stacktrek_collection_path, '/vagrant/collections/ansible_collections/inqwise/stacktrek', type: :rsync, rsync__exclude: '.git/', disabled: false
 
     aws.security_groups = ["sg-077f8d7d58d420467","sg-021470956a2b830ef"]
     # public-ssh, pension-api
