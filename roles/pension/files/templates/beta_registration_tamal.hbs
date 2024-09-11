@@ -1,0 +1,33 @@
+<html>
+<body dir="rtl">
+פרטי איש הקשר:
+<br>
+שם פרטי:
+{{firstName}}
+<br>
+שם משפחה:
+{{lastName}}
+<br>
+ת.ז:
+{{passportId}}
+<br>
+טלפון נייד:
+{{phone}}
+<br>
+דוא׳׳ל:
+{{email}}
+<br>
+<br>
+פרטי חברות
+<br>
+<ol>{{#each companies}} 
+<li>{{companyName}}
+<ol>
+<li>מספר תיק ניכויים:{{taxPortfolio}}
+<li>מספר עובדים:{{numOfActiveEmp}}</li> 
+</ol>
+</li>
+{{/each}}
+</ol>
+</body>
+</html>

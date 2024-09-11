@@ -1,0 +1,19 @@
+{
+	"auth": {{ app_configurations.auth | to_json }},
+	"admin": {{ app_configurations.admin | to_json }},
+	"front": {{ app_configurations.front | to_json }},
+	"replication": {{ app_configurations.replication | to_json }},
+	"cluster": {
+	},
+	"jobs": {
+		"_sync_interval": 15,
+		"_docs_sync_interval": 15,
+		"_tamal_sync_interval": 1
+	},
+	"metrics": {
+	},
+	"mail": {{ app_configurations.mail | to_json }},
+	"pension": {{ app_configurations.pension | to_json }},
+	"kafka":{{ app_configurations.kafka | to_json }},
+	"elastic": {{ app_configurations.elastic | to_json }}
+}

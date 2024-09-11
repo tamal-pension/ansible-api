@@ -1,0 +1,6 @@
+{
+	"ת.ז":"employee_id",
+	"תאריך דיווח":"insert_date",
+	"חודש דיווח":"period_id",
+	"חודש שכר":"salary_period_id"
+}

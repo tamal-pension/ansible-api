@@ -1,6 +1,42 @@
 ---
-- include_tasks: apps_installation.yml
 
-#- include_tasks: sync_logs.yml
+- name: Create application folders
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "10774"
+  loop:
+    - "{{ app_home }}"
+    - "{{ app_logs_path }}"
+    - "{{ app_bin_path }}"
+    - "{{ app_lib_path }}"
+    - "{{ app_templates_path }}"
+    - "{{ app_resources_path }}"
+  tags: installation
 
-- include_tasks: start_service.yml
+- name: Process config
+  ansible.builtin.import_tasks: config.yml
+
+- name: Process logger
+  ansible.builtin.import_tasks: logger.yml
+  
+- name: Process bin
+  ansible.builtin.import_tasks: bin.yml
+
+- name: Process lib
+  ansible.builtin.import_tasks: lib.yml
+
+- name: Copy service
+  ansible.builtin.template:
+    src: pension.service.j2
+    dest: "/etc/systemd/system/{{ app_service_name }}.service"
+    mode: "0644"
+  notify: restart pension
+  tags: installation
+
+- name: Just force systemd to reread configs
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+  tags: installation

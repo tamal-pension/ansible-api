@@ -1,0 +1,64 @@
+---
+- name: Copy email templates
+  ansible.builtin.copy:
+    src: templates/
+    dest: "{{ app_templates_path }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0750"
+  notify: restart pension
+  tags: installation
+
+- name: Copy resources
+  ansible.builtin.copy:
+    src: resources/
+    dest: "{{ app_resources_path }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0750"
+  notify: restart pension
+  tags: installation
+
+- name: Jceks keystore
+  ansible.builtin.include_role:
+    name: inqwise.common.jceks_keystore
+  vars:
+    keystore_user: "{{ app_user }}"
+    keystore_path: "{{ app_jceks_keystore_path }}"
+    keystore_password: "{{ app_jceks_keystore_password }}"
+    keystore_aliases:
+      - alias: hs256
+        keyalg: HMacSHA256
+      - alias: hs384
+        keyalg: HMacSHA384
+      - alias: hs512
+        keyalg: HMacSHA512
+    notify: restart pension
+    tags: configuration
+
+- name: Download pension from http
+  ansible.builtin.get_url:
+    dest: "{{ app_lib_path }}"
+    url: "{{ app_jar_url }}"
+    mode: "0750"
+    validate_certs: false
+    force: false
+  when: app_jar_url.startswith("http")
+  notify: restart pension
+  tags: configuration
+
+- name: Download pension from s3
+  ansible.builtin.command: "aws s3 cp {{ app_jar_url }} {{ app_lib_path }}"
+  when: app_jar_url.startswith("s3")
+  notify: restart pension
+  tags: configuration
+
+- name: Change owner for lib
+  ansible.builtin.file:
+    path: "{{ app_lib_path }}"
+    state: directory
+    recurse: true
+    group: "{{ app_group }}"
+    owner: "{{ app_user }}"
+    mode: "0750"
+  tags: configuration

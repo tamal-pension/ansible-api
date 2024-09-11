@@ -1,12 +1,12 @@
 [Unit]
-Description={{ description_name }}
+Description={{ app_description }}
 After=network.target
 
 [Service]
 Type=idle
-User={{ user }}
-Group={{ group }}
-ExecStart={{ app_folder }}/run.sh
+User={{ app_user }}
+Group={{ app_group }}
+ExecStart={{ app_home }}/bin/run.sh
 
 [Install]
 WantedBy=multi-user.target

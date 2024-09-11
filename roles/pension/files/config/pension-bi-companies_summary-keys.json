@@ -1,0 +1,10 @@
+{
+	"מספר חברה":"company_part_id",
+	"שם חברה":"company_part_name",
+	"סהכ כספים שדווחו":"sent_provision_total",
+	"סהכ כספים ששויכו לעובדים":"received_provision_total",
+	"סהכ עובדים בסטטוס 2":"employees_error_2_count",
+	"סהכ עובדים בסטטוס 3":"employees_error_3_count",
+	"סהכ עובדים שלא קיבלו מסכם":"employees_no_response_count",
+	"סהכ דיווחים בחודש":"employees_count"
+}

@@ -1,11 +1,11 @@
 ---
-discord_webhook: https://discord.com/api/webhooks/1241737791730225163/Mb1z13aBZ8cvhbZEO9meBxVIAEn1ClzVgruJ9vVqGh6E6umlZ81gpim_s_7f1nRPdaiE
+discord_webhook: https://discord.com/api/webhooks/{{ discord_message_webhook_id }}/{{ discord_message_webhook_token }}
 discord_channel: "#notifications"
 public_dns: pension
 private_dns: pension
 public_domain: pension-stg.tamal.co.il
 private_domain: pension-stg.local
-private_ip: "{{ ansible_default_ipv4['address'] }}"
+private_ip: "{{ ansible_default_ipv4.address }}"
 app_user: pension
 app_group: "{{ app_user }}"
 users_groups:
@@ -14,7 +14,5 @@ users:
   - name: "{{ app_user }}"
     group: "{{ app_group }}"
     append: yes
-remote_app_content_list: []
-#internal_base_url: https://internal-opinion-stg.s3.il-central-1.amazonaws.com
-access_file_url: "https://raw.githubusercontent.com/inqwise/ansible-automation-toolkit/master/access.yml"
-access_remote_base_path: "/tmp/ansible-pension/vars/access.yml"
+consul_template_service_start_and_enable: false
+consul_service_start_and_enable: false

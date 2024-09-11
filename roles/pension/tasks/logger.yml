@@ -1,0 +1,22 @@
+---
+
+- name: Copy log4j2 to config folder
+  template:
+    src: config/log4j2.xml.j2
+    dest: "{{ app_config_path }}/log4j2.xml"
+    block_start_string: "{$"
+  vars:
+    hostname: "{{ ansible_hostname }}"
+    instance_private_ip: "{{ private_ip }}"
+    instance_id: "{{ ec2_instance.id }}"
+    instance_environment_name: "{{ environment_name }}"
+    #app_name: "{{ app_name }}"
+    logs_full_path: "{{ internal_base_url }}/log4j2/api-loggers.xml"
+    logs_discord_webhook_url: "{{ discord_webhook }}"
+    logs_include_loggers_url: "https://github.com/xXkoshmarikXx/asset/blob/master/png%20images/java_error_image3.png?raw=true"
+    discord_avatar_url: ""
+  tags: configuration
+
+
+
+

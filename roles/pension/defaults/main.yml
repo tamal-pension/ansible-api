@@ -1,33 +1,182 @@
 ---
-base_path: "/data/pension"
-logs_full_path: "{{ base_path }}/logs"
-apps_full_path_local: "{{ /Users/terragootman/git/pension-ansible/ansible-pension/roles/pension/templates/apps }}"
-config_base_path: "{{ base_path }}/config"
-apps_full_path: "{{ base_path }}/apps"
-#scripts_full_path: "{{ base_path }}/scripts"
-pension_app_admin_base_path: "{{ apps_full_path }}/admin"
-pension_app_site_base_path: "{{ apps_full_path }}/site"
-pension_app_api_base_path: "{{ apps_full_path }}/api"
-# s3
-apps_remote_path: "s3://resource-pension-stg/apps/"
-#latest_remote_path: s3://artifactory-opinion-stg/latest
-#geolite2_remote_path: "s3://resource-opinion-stg/{{ geolite2_file_name }}"
-#pension_app_admin_remote_path: "{{ latest_remote_path }}/{{ pension_app_admin_name }}.war"
-#logs_remote_path: s3://log-opinion-stg/
-# slf4j_api_url: "https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar"
-# log4j_api_url: "https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar"
-# log4j_slf4j_impl_url: "https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-slf4j-impl/2.23.1/log4j-slf4j-impl-2.23.1.jar"
-# log4j_core_url: "https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.23.1/log4j-core-2.23.1.jar"
-# app names
-admin_app_name: admin
-site_app_name: site
-api_app_name: api
-#external_config_war_path: "[../config/external-config.properties]"
-#external_config_jar_path: "[../../config/external-config.properties]"
-#admin_general_product_id: "38604bba-3441-4696-8989-bba8c6c913bb"
-#admin_cms_portal_name: "InqwiseBO"
-#collector_general_product_id: "4f759655-9a12-474d-9ff3-1e0482f029db"
-#site_general_product_id: "4f759655-9a12-474d-9ff3-1e0482f029db"
-#site_cms_portal_name: "InqwiseFO"
-#api_general_product_id: "5758e8fb-a27c-4ff9-90c1-17c8486e3a8e"
-#app_loggers_file_name: "opinion-loggers.xml"
+app_name: pension
+app_description: pension application
+app_home: "/data/pension"
+app_logs_path: "{{ app_home }}/logs"
+app_bin_path: "{{ app_home }}/bin"
+app_lib_path: "{{ app_home }}/lib"
+app_config_path: "{{ app_home }}/config"
+app_templates_path: "{{ app_config_path }}/templates"
+app_resources_path: "{{ app_config_path }}/resources"
+app_service_name: "{{ app_name }}"
+app_service_start_and_enable: "{{ 'all' in ansible_run_tags or 'configuration' in ansible_run_tags }}"
+
+app_configurations:
+  auth:
+    jwt:
+      jwtOptions: "{{ app_auth_jwt_options }}"
+      keyStore: "{{ app_auth_jwt_keystore }}"
+    oauth:
+      default: "{{ app_auth_oauth_default }}"
+  admin:
+    port: 8082
+    display_stack: true
+    ip_array: "{{ app_admin_ips }}"
+    tamal_excluded_users: "{{ app_admin_tamal_excluded_users }}"
+    app_http_address_external: "{{ admin_http_address_external }}"
+    app_tag_header: true
+    cors:
+      allowed_origins: "{{ admin_cors_allowed_origins }}"
+    auth:
+      oauth:
+        default:
+          host: "{{ app_admin_auth_oauth_default_host }}"
+  front:
+    port: 8081
+    host: "0.0.0.0"
+    display_stack: false
+    token_expiration: 10
+    app_tag_header: true
+    cors:
+      allowed_origins: "{{ front_cors_allowed_origins }}"
+  replication:
+    name: "replication-api"
+    host: "replication.{{ private_domain }}"
+    port: 8080
+    api_name: "replication"
+
+  kafka:
+    bootstrap_servers: "kafka1.{{ private_domain }}:9092;kafka2.{{ private_domain }}:9092;kafka3.{{ private_domain }}:9092"
+
+  elastic:
+    hosts:
+      - "http://elastic1.{{ private_domain }}:9200"
+      - "http://elastic2.{{ private_domain }}:9200"
+    shards: 3
+    replicas: 1
+
+  mail: "{{ app_email }}"
+
+  pension:
+    _jobs:
+      _fill_queue_interval_in_seconds: 60
+      _process_queue_package_interval_in_seconds: 60
+      _tamal_sync_interval_in_minutes: 1
+      reports_ttl_in_seconds: 600
+      packages_ttl_in_seconds: 900
+      max_files_in_package: 100
+      max_individual_file_size_in_kb: 10000
+      max_package_size_in_kb: 2048
+      lock_ttl_im_milis: 5000
+      get_reports_partition_size: 20
+      send_reports_partition_size: 20
+    docs:
+      vfs:
+        destination-base-path: "s3:///"
+        files-path: "/reports-{{ private_domain }}"
+    _cyberark:
+      base-url: "http://example.com"
+    _vfs: {}
+    dao:
+      main:
+        url: "{{ app_dao_main.url }}"
+        driver_class: "com.mysql.cj.jdbc.Driver"
+        user: "{{ app_dao_main.user }}"
+        password: "{{ app_dao_main.password }}"
+    security: "{{ app_security }}"
+    marketing:
+      office_get_url_format: "{{ app_marketing.office_get_url_format }}"
+      office_update_url_format: "{{ app_marketing.office_update_url_format }}"
+      default_cache_expiration: 15
+      cache_size: 50000
+      marketing_api_key: "{{ app_marketing.marketing_api_key }}"
+      marketing_private_key: "{{ app_marketing.marketing_private_key }}"
+      include_messages: true
+      office_create_promotion_url_format: "{{ app_marketing.office_create_promotion_url_format }}"
+      pension_create_promotion_url_format: "{{ app_marketing.pension_create_promotion_url_format }}"
+      office_pro_category_uid: "PRO-1"
+      office_pro_category_optional: true
+      circuit_breaker:
+        timeout_in_seconds: 300
+        delay_in_seconds: 300
+        failure_threshold: 5
+    hubs:
+      default_hub: 1
+      max_file_size_in_mb: 200
+      max_process_files_per_hub: 250
+    mail:
+      templates_folder: "{{ app_templates_path }}"
+    reportings:
+      partition_size: 400
+      report_order_time_limit_minutes: 5
+      status_dictionary_file_path: "{{ app_resources_path }}/reporting-statusses.json"
+      xls_flat_template_path: "{{ app_templates_path }}/xls/flat_transactions_xls_template.xlsx"
+      endpoint: "{{ app_reportings_endpoint }}"
+      cache_size: 10000
+      vfs:
+        destination-base-path: "s3:///"
+        files-path: "/xlsreports-{{ private_domain }}"
+      send_allowed_deviation_in_minutes_minus: 90
+      send_allowed_deviation_in_minutes_plus: 90
+      validate_filename_cache_ttl_in_minutes: 600
+    invitation_tickets: "{{ app_invitation_tickets }}"
+    yearly_reportings:
+      partition_size: 400
+      report_order_time_limit_minutes: 60
+      status_dictionary_file_path: "{{ app_resources_path }}/reporting-statusses.json"
+      xls_flat_template_path: "{{ app_templates_path }}/xls/flat_transactions_yearly_xls_template.xlsx"
+      base-path: "{{ app_yearly_reportings_base_path }}"
+      endpoint: "{{ app_yearly_reportings_endpoint }}"
+      cache_size: 10000
+      vfs:
+        destination-base-path: "s3:///"
+        files-path: "/xlsreports-{{ private_domain }}"
+    schemas:
+      base_path: "{{ app_resources_path }}/schema"
+      reports:
+        - type: "first"
+          version: "5"
+          file: "first/Mimshak_Maasikim_First_XSD_v5.xsd"
+        - type: "first"
+          version: "6"
+          file: "first/Mimshak_Maasikim_First_XSD_v6.xsd"
+        - type: "mesakem"
+          version: "1"
+          file: "mesakem/Mimshak_Mesakem_XSD_Schema_v1.xsd"
+        - type: "negative"
+          version: "99"
+          file: "negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v1.xsd"
+    transformers:
+      versions:
+        - type: "shotef"
+          version: "4"
+          class: "com.tamal.pension.common.jaxb.shotef.ShotefV04Model"
+        - type: "negative"
+          version: "4"
+          class: "com.tamal.pension.common.jaxb.negative.NegativeV04Model"
+        - type: "first"
+          version: "7"
+          class: "com.tamal.pension.common.jaxb.first.FirstV06Model"
+    cache:
+      type: "redis"
+      datasource:
+        host: "redis-main01.{{ private_domain }}"
+        select: 5
+      ttl: 300
+    activities:
+      max_items: 9999
+      max_period_in_days: 1
+      search_period_in_hours: 6
+      insert_to_db: false
+    bi_reports:
+      bucket_name: "temp-{{ private_domain }}"
+      relative_path: "bi-reports"
+      file_expiration_in_minutes: 1440
+      destinationFileName: "TML FileName"
+    reports_requests:
+      request_cache_ttl_in_minutes: 60
+      sender_details: "{{ app_reports_requests_sender_details }}"
+      store_in_avro_format: true
+      vfs:
+        destination-base-path: "s3:///"
+        files-path: "/replication-{{ private_domain }}/rep-files"

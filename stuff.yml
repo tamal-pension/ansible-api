@@ -1,6 +1,7 @@
 ---
-- import_role:
-    name: aws
+- name: AWS role
+  ansible.builtin.import_role:
+    name: inqwise.common.aws
   vars:
     dns_record_list:
     - name: "{{ private_dns }}.{{ private_domain }}"
@@ -10,10 +11,12 @@
       private: true
       ttl: 120
 
-    - include_role:
-        name: deploy_app
-      vars:
-        user: "{{ app_user }}"
-        group: "{{ app_group }}"
-        collaboration_base: "{{ pension_base_path }}"
+- name: Java role
+  ansible.builtin.include_role:
+    name: inqwise.common.java
+  tags: install
+
+- name: Pension role 
+  ansible.builtin.import_role:
+    name: pension
    

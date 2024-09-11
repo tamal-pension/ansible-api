@@ -1,0 +1,21 @@
+{
+	"שם המעסיק":"companyPartName",
+	"קוד קופה באוצר":"pfundKeyShort",
+	"הון-קצבה":"allowanceTypeId",
+	"מזהה קופה":"pfundKey",
+	"שם פרטי עובד":"employeeFirstName",
+	"ח.פ קופה":"pfundSenderKey",
+	"תאריך ערך יתרות פיצויים":"compensationDate",
+	"שם קופה":"pfundName",
+	"מזהה מעסיק":"companyKey",
+	"ערך פדיון פיצויים":"amount",
+	"מזהה עובד":"employeeKey",
+	"תאריך הפקדה אחרונה":"lastDepositDate",
+	"סוג מוצר":"productTypeId",
+	"שם משפחה עובד":"AAAA",
+	"מספר חשבון-פוליסה":"policyId",
+	"תאריך תחילת צבירה למעסיק":"employerAccumulationDate",
+	"תאריך הפקדה ראשונה":"firstDepositDate",
+	"ערך פדיון פיצויים למס":"taxAmount",
+	"ערך פדיון פיצויים פטורים לעובד":"taxFreeAmount"
+}

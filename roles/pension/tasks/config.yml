@@ -1,0 +1,22 @@
+---
+- name: Copy config files
+  ansible.builtin.copy:
+    src: config/
+    dest: "{{ app_config_path }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0640"
+  notify: restart pension
+  tags: installation
+  no_log: true
+
+- name: Copy config.json
+  ansible.builtin.template: 
+    src: "config/config.json.j2"
+    dest: "{{ app_config_path }}/config.json"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0640"
+  notify: restart pension
+  tags: configuration
+  no_log: true
