@@ -8,11 +8,10 @@
 		<Property name="environment_name">{{ instance_environment_name }}</Property>
 		<Property name="logs_full_path">{{ logs_full_path }}</Property>
 		<Property name="discord_webhook_url">{{ logs_discord_webhook_url }}</Property>
-		<Property name="include_loggers_url">{{ logs_include_loggers_url }}</Property>
 		<Property name="discord_avatar_url">{{ discord_avatar_url }}</Property>
 	</Properties>
 	<Appenders>
-		<Http name="discord" url="${discord_webhook_url}">
+		<Http name="Discord" url="${discord_webhook_url}">
 			<Property name="Content-Type">application/json</Property>
 			<PatternLayout alwaysWriteExceptions="false">
 				<Pattern>
@@ -37,6 +36,10 @@
 				</Pattern>
 			</PatternLayout>
 		</Http>
+		<Async name="AsyncDiscord">
+			<BurstFilter rate="1"/>
+			<AppenderRef ref="Discord"/>
+		</Async>
 		<RollingFile name="RollingFile" filename="${logs_full_path}/${host}-${app_name}.log" filepattern="${logs_full_path}/${host}-${app_name}%i.log">
 			<PatternLayout pattern="%d %p %c [%t] %m%n"/>
 			<Policies>
@@ -46,5 +49,5 @@
 			<DefaultRolloverStrategy max="10"/>
 		</RollingFile>
 	</Appenders>
-	<xi:include href="${include_loggers_url}"/>
+	<xi:include href="{{ logs_include_loggers_url }}"/>
 </Configuration>
