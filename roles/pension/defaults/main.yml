@@ -7,9 +7,12 @@ app_bin_path: "{{ app_home }}/bin"
 app_lib_path: "{{ app_home }}/lib"
 app_config_path: "{{ app_home }}/config"
 app_templates_path: "{{ app_lib_path }}/templates"
-app_resources_path: "{{ app_lib_path }}/resources"
+app_resources_path: "{{ app_lib_path }}"
 app_service_name: "{{ app_name }}"
 app_service_start_and_enable: "{{ 'all' in ansible_run_tags or 'configuration' in ansible_run_tags }}"
+
+app_jceks_keystore_filename: "keystore.jceks"
+app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
 
 app_configurations:
   auth:
@@ -45,19 +48,18 @@ app_configurations:
     port: 8080
     api_name: "replication"
 
-  kafka:
-    bootstrap_servers: "kafka1.{{ private_domain }}:9092;kafka2.{{ private_domain }}:9092;kafka3.{{ private_domain }}:9092"
-
-  elastic:
-    hosts:
-      - "http://elastic1.{{ private_domain }}:9200"
-      - "http://elastic2.{{ private_domain }}:9200"
-    shards: 3
-    replicas: 1
+  #kafka:
+  #  bootstrap_servers: "kafka1.{{ private_domain }}:9092;kafka2.{{ private_domain }}:9092;kafka3.{{ private_domain }}:9092"
 
   mail: "{{ app_email }}"
 
   pension:
+    elastic:
+      hosts:
+        - "http://elastic1.{{ private_domain }}:9200"
+        - "http://elastic2.{{ private_domain }}:9200"
+      shards: 3
+      replicas: 1
     _jobs:
       _fill_queue_interval_in_seconds: 60
       _process_queue_package_interval_in_seconds: 60
@@ -134,29 +136,98 @@ app_configurations:
     schemas:
       base_path: "{{ app_resources_path }}/schema"
       reports:
-        - type: "first"
+        - type: first
           version: "5"
-          file: "first/Mimshak_Maasikim_First_XSD_v5.xsd"
-        - type: "first"
+          file: first/Mimshak_Maasikim_First_XSD_v5.xsd
+        - type: first
           version: "6"
-          file: "first/Mimshak_Maasikim_First_XSD_v6.xsd"
-        - type: "mesakem"
+          file: first/Mimshak_Maasikim_First_XSD_v6.xsd
+        - type: first
+          version: "7"
+          file: first/Mimshak_Maasikim_First_XSD_v7.xsd
+        - type: first
+          version: "8"
+          file: first/Mimshak_Maasikim_First_XSD_v8.xsd
+        - type: first
+          version: "9"
+          file: first/Mimshak_Maasikim_First_XSD_v9.xsd
+        - type: mesakem
           version: "1"
-          file: "mesakem/Mimshak_Mesakem_XSD_Schema_v1.xsd"
-        - type: "negative"
+          file: mesakem/Mimshak_Mesakem_XSD_Schema_v1.xsd
+        - type: mesakem
+          version: "2"
+          file: mesakem/Mimshak_Mesakem_XSD_Schema_v2.xsd
+        - type: mesakem
+          version: "3"
+          file: mesakem/Mimshak_Mesakem_XSD_Schema_v3.xsd
+        - type: mesakem
+          version: "4"
+          file: mesakem/Mimshak_Mesakem_XSD_Schema_v4.xsd
+        - type: yearly
+          version: "1"
+          file: yearly/Mimshak_Mesakem_Shnati_XSD_Schema_v1.xsd
+        - type: shotef
           version: "99"
-          file: "negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v1.xsd"
+          file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v1.xsd
+        - type: shotef
+          version: "98"
+          file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v2.xsd
+        - type: shotef
+          version: "97"
+          file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v3.xsd
+        - type: shotef
+          version: "4"
+          file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v4.xsd
+        - type: negative
+          version: "99"
+          file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v1.xsd
+        - type: negative
+          version: "98"
+          file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v2.xsd
+        - type: negative
+          version: "97"
+          file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v3.xsd
+        - type: negative
+          version: "4"
+          file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v4.xsd
+        - type: event
+          version: "6"
+          file: event/MivneAchid_Incoming_Events_XSD_v6.xsd
+        - type: pitzuim
+          version: "4"
+          file: pitzuim/Mimshak_Pitzuim_XSD_v4.xsd
     transformers:
       versions:
-        - type: "shotef"
+        - type: shotef
           version: "4"
-          class: "com.tamal.pension.common.jaxb.shotef.ShotefV04Model"
-        - type: "negative"
+          class: com.tamal.pension.common.jaxb.shotef.ShotefV04Model
+        - type: negative
           version: "4"
-          class: "com.tamal.pension.common.jaxb.negative.NegativeV04Model"
-        - type: "first"
+          class: com.tamal.pension.common.jaxb.negative.NegativeV04Model
+        - type: mesakem
+          version: "2"
+          class: com.tamal.pension.common.jaxb.mesakem.MesakemV02Model
+        - type: mesakem
+          version: "3"
+          class: com.tamal.pension.common.jaxb.mesakem.MesakemV03Model
+        - type: mesakem
+          version: "4"
+          class: com.tamal.pension.common.jaxb.mesakem.MesakemV04Model
+        - type: first
           version: "7"
-          class: "com.tamal.pension.common.jaxb.first.FirstV06Model"
+          class: com.tamal.pension.common.jaxb.first.FirstV06Model
+        - type: first
+          version: "8"
+          class: com.tamal.pension.common.jaxb.first.FirstV08Model
+        - type: first
+          version: "9"
+          class: com.tamal.pension.common.jaxb.first.FirstV09Model
+        - type: event
+          version: "5"
+          class: com.tamal.pension.common.jaxb.event.IncomingEventsV05Model
+        - type: pitzuim
+          version: "4"
+          class: com.tamal.pension.common.jaxb.pitzuim.PitzuimV04Model
     cache:
       type: "redis"
       datasource:

@@ -21,7 +21,7 @@
 
 - name: Process logger
   ansible.builtin.import_tasks: logger.yml
-  
+ 
 - name: Process bin
   ansible.builtin.import_tasks: bin.yml
 

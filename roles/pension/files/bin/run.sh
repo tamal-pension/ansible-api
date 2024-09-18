@@ -69,7 +69,7 @@ java \
   ${GENERAL_OPTS[@]} \
   ${JMX_OPTS[@]} \
   ${MODULE_OPTS[@]} \
-  -classpath "$LIB_DIR/*:$JAR" \
+  -classpath "$LIB_DIR/*:$JAR:lib" \
   io.vertx.core.Launcher run com.tamal.pension.api.Server \
   -options "$OPTIONS" \
   -conf "$CONF" \

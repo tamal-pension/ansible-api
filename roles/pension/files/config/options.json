@@ -4,10 +4,7 @@
 		"prometheusOptions":{
 			"enabled": true
 		},
-    "jmxMetricsOptions": {
-      "enabled": true
-    },
-    "jvmMetricsEnabled": true
+		"jvmMetricsEnabled": true
 	},
   "preferNativeTransport":true
 }

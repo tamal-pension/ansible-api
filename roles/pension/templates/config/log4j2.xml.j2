@@ -48,6 +48,9 @@
 			</Policies>
 			<DefaultRolloverStrategy max="10"/>
 		</RollingFile>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</Console>
 	</Appenders>
 	<xi:include href="{{ logs_include_loggers_url }}"/>
 </Configuration>
