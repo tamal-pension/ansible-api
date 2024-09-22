@@ -13,7 +13,10 @@ users_groups:
 users:
   - name: "{{ app_user }}"
     group: "{{ app_group }}"
-    append: yes
+    append: true
+    create_home: false
+    system: true
+    shell: /sbin/nologin
 consul_template_service_start_and_enable: false
 consul_service_start_and_enable: false
 internal_base_url: https://internal-pension-stg.s3.amazonaws.com
