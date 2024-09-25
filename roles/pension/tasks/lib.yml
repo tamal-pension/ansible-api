@@ -33,6 +33,8 @@
         keyalg: HMacSHA384
       - alias: hs512
         keyalg: HMacSHA512
+      - alias: jceksaes
+        keyalg: AES
     notify: restart pension
     tags: configuration
 
