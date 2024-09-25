@@ -35,8 +35,8 @@
         keyalg: HMacSHA512
       - alias: jceksaes
         keyalg: AES
-    notify: restart pension
-    tags: configuration
+  notify: restart pension
+  tags: configuration
 
 - name: Download pension from http
   ansible.builtin.get_url:
