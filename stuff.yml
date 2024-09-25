@@ -14,7 +14,7 @@
 - name: Java role
   ansible.builtin.include_role:
     name: inqwise.common.java
-  tags: install
+  tags: installation
 
 - name: Pension role 
   ansible.builtin.import_role:

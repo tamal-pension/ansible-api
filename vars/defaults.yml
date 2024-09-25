@@ -3,7 +3,6 @@ discord_webhook: https://discord.com/api/webhooks/{{ discord_message_webhook_id 
 discord_channel: "#notifications"
 public_dns: pension
 private_dns: pension
-public_domain: pension-stg.tamal.co.il
 private_domain: pension-stg.local
 private_ip: "{{ ansible_default_ipv4.address }}"
 app_user: pension
@@ -19,4 +18,3 @@ users:
     shell: /sbin/nologin
 consul_template_service_start_and_enable: false
 consul_service_start_and_enable: false
-internal_base_url: https://internal-pension-stg.s3.amazonaws.com

@@ -48,9 +48,6 @@ app_configurations:
     port: 8080
     api_name: "replication"
 
-  #kafka:
-  #  bootstrap_servers: "kafka1.{{ private_domain }}:9092;kafka2.{{ private_domain }}:9092;kafka3.{{ private_domain }}:9092"
-
   mail: "{{ app_email }}"
 
   pension:
@@ -75,7 +72,7 @@ app_configurations:
     docs:
       vfs:
         destination-base-path: "s3:///"
-        files-path: "/reports-{{ private_domain }}"
+        files-path: "/reports-{{ environment_name }}"
     _cyberark:
       base-url: "http://example.com"
     _vfs: {}
@@ -117,7 +114,7 @@ app_configurations:
       cache_size: 10000
       vfs:
         destination-base-path: "s3:///"
-        files-path: "/xlsreports-{{ private_domain }}"
+        files-path: "/xlsreports-{{ environment_name }}"
       send_allowed_deviation_in_minutes_minus: 90
       send_allowed_deviation_in_minutes_plus: 90
       validate_filename_cache_ttl_in_minutes: 600
@@ -132,7 +129,7 @@ app_configurations:
       cache_size: 10000
       vfs:
         destination-base-path: "s3:///"
-        files-path: "/xlsreports-{{ private_domain }}"
+        files-path: "/xlsreports-{{ environment_name }}"
     schemas:
       base_path: "{{ app_resources_path }}/schema"
       reports:
@@ -240,7 +237,7 @@ app_configurations:
       search_period_in_hours: 6
       insert_to_db: false
     bi_reports:
-      bucket_name: "temp-{{ private_domain }}"
+      bucket_name: "temp-{{ environment_name }}"
       relative_path: "bi-reports"
       file_expiration_in_minutes: 1440
       destinationFileName: "TML FileName"
@@ -250,4 +247,4 @@ app_configurations:
       store_in_avro_format: true
       vfs:
         destination-base-path: "s3:///"
-        files-path: "/replication-{{ private_domain }}/rep-files"
+        files-path: "/replication-{{ environment_name }}/rep-files"
