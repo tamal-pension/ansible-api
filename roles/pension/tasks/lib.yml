@@ -22,6 +22,8 @@
 - name: Jceks keystore
   ansible.builtin.include_role:
     name: inqwise.common.jceks_keystore
+    apply:
+      tags: configuration
   vars:
     keystore_user: "{{ app_user }}"
     keystore_path: "{{ app_jceks_keystore_path }}"
