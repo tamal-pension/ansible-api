@@ -11,8 +11,56 @@ app_resources_path: "{{ app_lib_path }}"
 app_service_name: "{{ app_name }}"
 app_service_start_and_enable: "{{ 'all' in ansible_run_tags or 'configuration' in ansible_run_tags }}"
 
+app_jobs_enable: true
+app_api_enable: true
+
 app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
+
+
+app_admin:
+  port: 8082
+  display_stack: true
+  ip_array: "{{ app_admin_ips }}"
+  tamal_excluded_users: "{{ app_admin_tamal_excluded_users }}"
+  app_http_address_external: "{{ admin_http_address_external }}"
+  app_tag_header: true
+  cors:
+    allowed_origins: "{{ admin_cors_allowed_origins }}"
+  auth:
+    oauth:
+      default:
+        host: "{{ app_admin_auth_oauth_default_host }}"
+
+app_user:
+  port: 8081
+  host: "0.0.0.0"
+  display_stack: false
+  token_expiration: 10
+  app_tag_header: true
+  cors:
+    allowed_origins: "{{ front_cors_allowed_origins }}"
+
+app_jobs:
+  _sync_interval: 45
+  docs_sync_interval: 10
+  tamal_sync_interval: 15
+  shared_jobs_lock_timeout: 1000
+  shared_jobs_ttl: 15
+
+app_pension_jobs:
+  _fill_queue_interval_in_seconds: 60
+  _process_queue_package_interval_in_seconds: 60
+  _tamal_sync_interval_in_minutes: 1
+  reports_ttl_in_seconds: 600
+  packages_ttl_in_seconds: 900
+  max_files_in_package: 50
+  max_individual_file_size_in_kb: 15360
+  max_package_size_in_kb: 2048
+  lock_ttl_im_milis: 5000
+  get_reports_partition_size: 20
+  send_reports_partition_size: 20
+  distribute_events_interval_in_seconds: 120
 
 app_configurations:
   auth:
@@ -21,27 +69,7 @@ app_configurations:
       keyStore: "{{ app_auth_jwt_keystore }}"
     oauth:
       default: "{{ app_auth_oauth_default }}"
-  admin:
-    port: 8082
-    display_stack: true
-    ip_array: "{{ app_admin_ips }}"
-    tamal_excluded_users: "{{ app_admin_tamal_excluded_users }}"
-    app_http_address_external: "{{ admin_http_address_external }}"
-    app_tag_header: true
-    cors:
-      allowed_origins: "{{ admin_cors_allowed_origins }}"
-    auth:
-      oauth:
-        default:
-          host: "{{ app_admin_auth_oauth_default_host }}"
-  front:
-    port: 8081
-    host: "0.0.0.0"
-    display_stack: false
-    token_expiration: 10
-    app_tag_header: true
-    cors:
-      allowed_origins: "{{ front_cors_allowed_origins }}"
+
   replication:
     name: "replication-api"
     host: "replication.{{ private_domain }}"
@@ -57,18 +85,6 @@ app_configurations:
         - "http://elastic2.{{ private_domain }}:9200"
       shards: 3
       replicas: 1
-    _jobs:
-      _fill_queue_interval_in_seconds: 60
-      _process_queue_package_interval_in_seconds: 60
-      _tamal_sync_interval_in_minutes: 1
-      reports_ttl_in_seconds: 600
-      packages_ttl_in_seconds: 900
-      max_files_in_package: 100
-      max_individual_file_size_in_kb: 10000
-      max_package_size_in_kb: 2048
-      lock_ttl_im_milis: 5000
-      get_reports_partition_size: 20
-      send_reports_partition_size: 20
     docs:
       vfs:
         destination-base-path: "s3:///"

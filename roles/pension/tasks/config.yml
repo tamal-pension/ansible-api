@@ -1,4 +1,33 @@
 ---
+
+- name: Add User config into app_configurations
+  ansible.builtin.set_fact:
+    app_configurations:
+      "{{ app_configurations | combine({'user': app_user}) }}"
+  tags: configuration
+  when: app_api_enable
+
+- name: Add Admin config into app_configurations
+  ansible.builtin.set_fact:
+    app_configurations:
+      "{{ app_configurations | combine({'admin': app_admin}) }}"
+  tags: configuration
+  when: app_api_enable
+
+- name: Add Jobs config into app_configurations
+  ansible.builtin.set_fact:
+    app_configurations:
+      "{{ app_configurations | combine({'jobs': app_jobs}) }}"
+  tags: configuration
+  when: app_jobs_enable
+
+- name: Add Jobs config into app_configurations.pension
+  ansible.builtin.set_fact:
+    app_configurations:
+      "{{ app_configurations | combine({'pension': app_configurations.pension | combine({'jobs': app_pension_jobs})}) }}"
+  tags: configuration
+  when: app_jobs_enable
+
 - name: Copy config files
   ansible.builtin.copy:
     src: config/
