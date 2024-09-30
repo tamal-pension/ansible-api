@@ -244,7 +244,7 @@ app_configurations:
     cache:
       type: "redis"
       datasource:
-        host: "redis-main01.{{ private_domain }}"
+        host: "redis.{{ private_domain }}"
         select: 5
       ttl: 300
     activities:
