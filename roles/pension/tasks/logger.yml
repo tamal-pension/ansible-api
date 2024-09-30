@@ -12,6 +12,6 @@
     instance_environment_name: "{{ environment_name }}"
     logs_full_path: "{{ app_logs_path }}"
     logs_discord_webhook_url: "{{ discord_webhook }}"
-    logs_include_loggers_url: "{{ internal_base_url }}/log4j2/{{ app_logger_filename }}"
+    logs_include_loggers_url: "{{ internal_base_url }}/log4j2/{{ app_logger_file_name }}"
     discord_avatar_url: "https://github.com/xXkoshmarikXx/asset/blob/master/png%20images/java_error_image3.png?raw=true"
   tags: configuration
