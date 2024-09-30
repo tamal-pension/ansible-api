@@ -13,6 +13,8 @@
     private_dns: "private_dns"
     jobs_enable: "app_jobs_enable"
     api_enable: "app_api_enable"
+    app_name: "app_name"
+    logger_filename: "app_logger_filename"
 
 - name: Java role
   ansible.builtin.include_role:

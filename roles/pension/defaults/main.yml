@@ -10,7 +10,7 @@ app_templates_path: "{{ app_lib_path }}/templates"
 app_resources_path: "{{ app_lib_path }}"
 app_service_name: "{{ app_name }}"
 app_service_start_and_enable: "{{ 'all' in ansible_run_tags or 'configuration' in ansible_run_tags }}"
-
+app_logger_file_name: "api-loggers.xml"
 app_jobs_enable: true
 app_api_enable: true
 
@@ -18,7 +18,7 @@ app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
 
 
-app_admin:
+app_api_admin:
   port: 8082
   display_stack: true
   ip_array: "{{ app_admin_ips }}"
@@ -32,7 +32,7 @@ app_admin:
       default:
         host: "{{ app_admin_auth_oauth_default_host }}"
 
-app_user:
+app_api_user:
   port: 8081
   host: "0.0.0.0"
   display_stack: false

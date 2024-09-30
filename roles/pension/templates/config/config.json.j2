@@ -1,19 +1,19 @@
 {
 {% if app_configurations.admin is defined %}
-"auth": {{ app_configurations.auth | to_json }},
-"admin": {{ app_configurations.admin | to_json }},
+  "auth": {{ app_configurations.auth | to_nice_json | indent(2) }},
+  "admin": {{ app_configurations.admin | to_nice_json | indent(2) }},
 {% endif %}
 {% if app_configurations.user is defined %}
-"user": {{ app_configurations.user | to_json }},
+  "user": {{ app_configurations.user | to_nice_json | indent(2) }},
 {% endif %}
-"replication": {{ app_configurations.replication | to_json }},
-"cluster": {
-},
+  "replication": {{ app_configurations.replication | to_nice_json | indent(2) }},
+  "cluster": {
+  },
 {% if app_configurations.user is defined %}
-"jobs": {{ app_configurations.jobs | to_json }},
+  "jobs": {{ app_configurations.jobs | to_nice_json | indent(2) }},
 {% endif %}
-"metrics": {
-},
-"mail": {{ app_configurations.mail | to_json }},
-"pension": {{ app_configurations.pension | to_nice_json }}
+  "metrics": {
+  },
+  "mail": {{ app_configurations.mail | to_nice_json | indent(2) }},
+  "pension": {{ app_configurations.pension | to_nice_json | indent(2) }}
 }

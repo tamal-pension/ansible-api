@@ -1,16 +1,16 @@
 ---
 
-- name: Add User config into app_configurations
+- name: Add User api config into app_configurations
   ansible.builtin.set_fact:
     app_configurations:
-      "{{ app_configurations | combine({'user': app_user}) }}"
+      "{{ app_configurations | combine({'user': app_api_user}) }}"
   tags: configuration
   when: app_api_enable
 
-- name: Add Admin config into app_configurations
+- name: Add Admin api config into app_configurations
   ansible.builtin.set_fact:
     app_configurations:
-      "{{ app_configurations | combine({'admin': app_admin}) }}"
+      "{{ app_configurations | combine({'admin': app_api_admin}) }}"
   tags: configuration
   when: app_api_enable
 
