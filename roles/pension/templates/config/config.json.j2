@@ -1,4 +1,5 @@
 {
+  "monitor":{},
 {% if app_configurations.admin is defined %}
   "auth": {{ app_configurations.auth | to_nice_json | indent(2) }},
   "admin": {{ app_configurations.admin | to_nice_json | indent(2) }},
