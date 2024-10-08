@@ -19,6 +19,7 @@ app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }
 
 
 app_api_admin:
+  access_header_name: x-inqwise
   port: 8082
   display_stack: true
   ip_array: "{{ app_admin_ips }}"
