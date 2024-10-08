@@ -24,7 +24,7 @@ app_api_admin:
   display_stack: true
   ip_array: "{{ app_admin_ips }}"
   tamal_excluded_users: "{{ app_admin_tamal_excluded_users }}"
-  app_http_address_external: "{{ admin_http_address_external }}"
+  app.http.address.external: "{{ admin_http_address_external }}"
   app_tag_header: true
   cors:
     allowed_origins: "{{ admin_cors_allowed_origins }}"
@@ -82,8 +82,8 @@ app_configurations:
   pension:
     elastic:
       hosts:
-        - "http://elastic1.{{ private_domain }}:9200"
-        - "http://elastic2.{{ private_domain }}:9200"
+        - "http://elastic-master1.{{ private_domain }}:9200"
+        - "http://elastic-master2.{{ private_domain }}:9200"
       shards: 3
       replicas: 1
     docs:
