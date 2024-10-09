@@ -3,7 +3,12 @@
 		"enabled": true,
 		"prometheusOptions":{
 			"enabled": true
-		}
+		},
+		"jmxMetricsOptions": {
+			"enabled": true,
+			"domain": "pension"
+		},
+		"jvmMetricsEnabled": true
 	},
-  "preferNativeTransport":true
+	"preferNativeTransport":true
 }

@@ -15,6 +15,7 @@
     api_enable: "app_api_enable"
     app_name: "app_name"
     logger_filename: "app_logger_filename"
+    marketing_mock: "app_marketing_mock" 
 
 - name: Java role
   ansible.builtin.include_role:

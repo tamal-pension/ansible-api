@@ -13,6 +13,7 @@ app_service_start_and_enable: "{{ 'all' in ansible_run_tags or 'configuration' i
 app_logger_file_name: "api-loggers.xml"
 app_jobs_enable: true
 app_api_enable: true
+app_marketing_mock: false
 
 app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
@@ -101,6 +102,7 @@ app_configurations:
         password: "{{ app_dao_main.password }}"
     security: "{{ app_security }}"
     marketing:
+      mock: "{{ app_marketing_mock }}"
       office_get_url_format: "{{ app_marketing.office_get_url_format }}"
       office_update_url_format: "{{ app_marketing.office_update_url_format }}"
       default_cache_expiration: 15
