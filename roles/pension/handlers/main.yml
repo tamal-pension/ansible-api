@@ -6,3 +6,8 @@
     state: restarted
     enabled: true
   when: app_service_start_and_enable
+
+- name: Check alloy is started properly
+  ansible.builtin.include_tasks: ga-started.yml
+  listen: "restart pension"
+  when: app_service_start_and_enable and app_api_enable

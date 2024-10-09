@@ -1,0 +1,26 @@
+---
+- name: Health check api admin
+  ansible.builtin.uri:
+    url: "http://localhost:{{ app_api_admin.port }}/healthcheck"
+    follow_redirects: none
+    method: GET
+  register: _result
+  failed_when: false
+  until: _result.status == 200
+  retries: 3
+  delay: 5
+  changed_when: false
+  when: app_service_start_and_enable and app_api_enable
+
+- name: Health check api user
+  ansible.builtin.uri:
+    url: "http://localhost:{{ app_api_user.port }}/healthcheck"
+    follow_redirects: none
+    method: GET
+  register: _result
+  failed_when: false
+  until: _result.status == 200
+  retries: 3
+  delay: 5
+  changed_when: false
+  when: app_service_start_and_enable and app_api_enable
