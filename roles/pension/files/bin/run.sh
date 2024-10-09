@@ -23,13 +23,6 @@ LOGGING_OPTS=(
   "-Dlog4j.configurationFile=$LOG"
 )
 
-# JVM options for metrics
-METRICS_OPTS=(
-  "-Dvertx.metrics.options.enabled=true"
-  "-Dvertx.metrics.options.jmxEnabled=true"
-  "-Dvertx.metrics.options.jmxDomain=$JMX_DOMAIN"
-)
-
 # General JVM options
 GENERAL_OPTS=(
   "-XX:+HeapDumpOnOutOfMemoryError"
@@ -65,7 +58,6 @@ echo "JVM Options: ${LOGGING_OPTS[@]} ${METRICS_OPTS[@]} ${GENERAL_OPTS[@]} ${JM
 # Run the Java application
 java \
   ${LOGGING_OPTS[@]} \
-  ${METRICS_OPTS[@]} \
   ${GENERAL_OPTS[@]} \
   ${JMX_OPTS[@]} \
   ${MODULE_OPTS[@]} \

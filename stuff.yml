@@ -10,12 +10,13 @@
       value: "{{ private_ip }}"
       private: true
       ttl: 120
-    private_dns: "private_dns"
-    jobs_enable: "app_jobs_enable"
-    api_enable: "app_api_enable"
-    app_name: "app_name"
-    logger_filename: "app_logger_filename"
-    marketing_mock: "app_marketing_mock" 
+    tags_facts:
+      private_dns: "private_dns"
+      jobs_enable: "app_jobs_enable"
+      api_enable: "app_api_enable"
+      app_name: "app_name"
+      logger_filename: "app_logger_filename"
+      marketing_mock: "app_marketing_mock" 
 
 - name: Java role
   ansible.builtin.include_role:
