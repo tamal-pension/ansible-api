@@ -15,3 +15,4 @@ users:
     system: true
 consul_template_service_start_and_enable: false
 consul_service_start_and_enable: false
+aws_iam_role: "api-role"
