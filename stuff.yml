@@ -95,7 +95,7 @@
           values = {
             "job" = "integrations/node_exporter",
             "app" = "{{ app_name }}",
-            "unit"= "{{ app_name }}.service"
+            "unit"= "{{ app_name }}.service",
           }
         }
         forward_to = [
