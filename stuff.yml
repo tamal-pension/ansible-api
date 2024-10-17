@@ -35,8 +35,6 @@
     alloy_user_groups:
       - systemd-journal
       - "{{ app_group }}"
-    env_file_vars:
-      CUSTOM_ARGS: "--server.http.listen-addr=0.0.0.0:12345 --disable-reporting=true --stability.level=public-preview"
     config: |
       loki.write "local" {
         endpoint {
@@ -85,7 +83,7 @@
       }
       loki.process "filter_logs" {
         stage.regex {
-          expression = "^(?P<date>[^ ]+) (?P<time>[^ ]+) (?P<level>[^ ]+) (?P<logger>[^ ]+) \\[(?P<thread>[^\\]]+)\\] (?P<message>.*)$"
+          expression = "^(?P<timestamp>[0-9\\-]{10} [0-9:]{8},[0-9]{3}) (?P<level>[^ ]+) (?P<logger>[^ ]+) \\[(?P<thread>[^\\]]+)\\] (?P<message>.*)$"
         }
         stage.labels {
           values = {
