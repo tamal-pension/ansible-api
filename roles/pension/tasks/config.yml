@@ -49,3 +49,13 @@
   notify: restart pension
   tags: configuration
   no_log: true
+
+- name: AWS credentials config
+  ansible.builtin.include_role:
+    name: config
+    tasks_from: inqwise.common.aws_utils
+  vars:
+    aws_config_region: "{{ ec2_instance.region }}"
+    aws_access_key_id: "{{ app_filesystem_aws.access_key }}"
+    aws_secret_access_key: "{{ app_filesystem_aws.secret_access_key }}"
+  tags: configuration

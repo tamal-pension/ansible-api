@@ -18,7 +18,6 @@ app_marketing_mock: false
 app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
 
-
 app_api_admin:
   access_header_name: x-inqwise
   port: 8082
@@ -134,7 +133,6 @@ app_configurations:
       vfs:
         destination-base-path: "s3:///"
         files-path: "/xlsreports-{{ environment_name }}"
-        aws_region: "{{ ec2_instance.region }}"
       send_allowed_deviation_in_minutes_minus: 90
       send_allowed_deviation_in_minutes_plus: 90
       validate_filename_cache_ttl_in_minutes: 600
@@ -150,7 +148,6 @@ app_configurations:
       vfs:
         destination-base-path: "s3:///"
         files-path: "/xlsreports-{{ environment_name }}"
-        aws_region: "{{ ec2_instance.region }}"
     schemas:
       base_path: "{{ app_resources_path }}/schema"
       reports:
