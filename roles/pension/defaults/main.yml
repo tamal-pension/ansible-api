@@ -134,6 +134,7 @@ app_configurations:
       vfs:
         destination-base-path: "s3:///"
         files-path: "/xlsreports-{{ environment_name }}"
+        aws_region: "{{ ec2_instance.region }}"
       send_allowed_deviation_in_minutes_minus: 90
       send_allowed_deviation_in_minutes_plus: 90
       validate_filename_cache_ttl_in_minutes: 600
@@ -149,6 +150,7 @@ app_configurations:
       vfs:
         destination-base-path: "s3:///"
         files-path: "/xlsreports-{{ environment_name }}"
+        aws_region: "{{ ec2_instance.region }}"
     schemas:
       base_path: "{{ app_resources_path }}/schema"
       reports:
