@@ -82,6 +82,9 @@
         tail_from_end = true
       }
       loki.process "filter_logs" {
+        stage.multiline {
+          firstline = "^(?P<timestamp>[0-9\\-]{10} [0-9:]{8},[0-9]{3}) (?P<level>[^ ]+)"
+        }
         stage.regex {
           expression = "^(?P<timestamp>[0-9\\-]{10} [0-9:]{8},[0-9]{3}) (?P<level>[^ ]+) (?P<logger>[^ ]+) \\[(?P<thread>[^\\]]+)\\] (?P<message>.*)$"
         }
@@ -89,11 +92,11 @@
           values = {
             "level" = "level",
             "logger" = "logger",
+            "timestamp" = "timestamp",
           }
         }
         stage.static_labels {
           values = {
-            "job" = "integrations/node_exporter",
             "app" = "{{ app_name }}",
             "unit"= "{{ app_name }}.service",
           }
