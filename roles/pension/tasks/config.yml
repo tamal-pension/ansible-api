@@ -54,6 +54,8 @@
   ansible.builtin.include_role:
     name: config
     tasks_from: inqwise.common.aws_utils
+    apply:
+      tags: configuration
   vars:
     aws_config_region: "{{ ec2_instance.region }}"
     aws_access_key_id: "{{ app_filesystem_aws.access_key }}"
