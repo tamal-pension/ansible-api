@@ -19,24 +19,12 @@
   notify: restart pension
   tags: installation
 
-- name: Jceks keystore
-  ansible.builtin.include_role:
-    name: inqwise.common.jceks_keystore
-    apply:
-      tags: configuration
-  vars:
-    keystore_user: "{{ app_user }}"
-    keystore_path: "{{ app_jceks_keystore_path }}"
-    keystore_password: "{{ app_jceks_keystore_password }}"
-    keystore_aliases:
-      - alias: hs256
-        keyalg: HMacSHA256
-      - alias: hs384
-        keyalg: HMacSHA384
-      - alias: hs512
-        keyalg: HMacSHA512
-      - alias: jceksaes
-        keyalg: AES
+- name: Copy keystore file with read-only permission
+  ansible.builtin.get_url:
+    url: "{{ internal_base_url }}/keystore/keystore.jceks"
+    dest: "{{ app_jceks_keystore_path }}"
+    mode: '0400'
+    owner: "{{ app_user }}"
   tags: configuration
 
 - name: Download pension from http
