@@ -1,2 +1,3 @@
 environment_name: pension-stg
 app_public_domain: pension-stg.tamal.co.il
+private_domain: pension-stg.local
