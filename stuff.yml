@@ -26,6 +26,8 @@
 - name: Pension role 
   ansible.builtin.import_role:
     name: pension
+  vars:
+    logs_discord_webhook_url: "{{ discord_webhooks.apilog | default(discord_webhooks.default) }}"
 
 - name: Install Alloy
   ansible.builtin.include_role:
