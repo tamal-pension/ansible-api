@@ -21,6 +21,14 @@
   tags: configuration
   when: app_jobs_enable
 
+- name: Set app_pension_jobs configuration with predefined variables
+  tags: configuration
+  when: app_jobs_enable and app_jobs_auto_sync_in_enable
+  ansible.builtin.set_fact:
+    app_pension_jobs: "{{ app_pension_jobs | default({}) | combine({
+      'fill_queue_interval_in_seconds': app_pension_jobs_fill_queue_interval_in_seconds,
+      'process_queue_package_interval_in_seconds': app_pension_jobs_process_queue_package_interval_in_seconds}) }}"
+  
 - name: Add Jobs config into app_configurations.pension
   ansible.builtin.set_fact:
     app_configurations:

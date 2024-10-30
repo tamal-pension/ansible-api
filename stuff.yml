@@ -13,6 +13,7 @@
     tags_facts:
       private_dns: "private_dns"
       jobs_enable: "app_jobs_enable"
+      jobs_auto_sync_in_enable: "app_jobs_auto_sync_in_enable"
       api_enable: "app_api_enable"
       app_name: "app_name"
       logger_filename: "app_logger_filename"
@@ -27,7 +28,7 @@
   ansible.builtin.import_role:
     name: pension
   vars:
-    logs_discord_webhook_url: "{{ discord_webhooks.apilog | default(discord_webhooks.default) }}"
+    discord_webhook: "{{ discord_webhooks.apilog | default(discord_webhooks.default) }}"
 
 - name: Install Alloy
   ansible.builtin.include_role:

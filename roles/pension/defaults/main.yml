@@ -14,6 +14,7 @@ app_logger_file_name: "api-loggers.xml"
 app_jobs_enable: true
 app_api_enable: true
 app_marketing_mock: false
+app_jobs_auto_sync_in_enable: true
 
 app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
@@ -49,9 +50,10 @@ app_jobs:
   shared_jobs_lock_timeout: 1000
   shared_jobs_ttl: 15
 
+app_pension_jobs_fill_queue_interval_in_seconds: 60
+app_pension_jobs_process_queue_package_interval_in_seconds: 60
+
 app_pension_jobs:
-  _fill_queue_interval_in_seconds: 60
-  _process_queue_package_interval_in_seconds: 60
   _tamal_sync_interval_in_minutes: 1
   reports_ttl_in_seconds: 600
   packages_ttl_in_seconds: 900
@@ -84,6 +86,7 @@ app_configurations:
       hosts:
         - "http://elastic-master1.{{ private_domain }}:9200"
         - "http://elastic-master2.{{ private_domain }}:9200"
+        - "http://elastic-master3.{{ private_domain }}:9200"
       shards: 3
       replicas: 1
     docs:
