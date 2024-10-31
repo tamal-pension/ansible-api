@@ -21,6 +21,12 @@
   tags: configuration
   when: app_jobs_enable
 
+- name: Display app_configurations.jobs
+  debug:
+    msg: "app_configurations.jobs: {{ app_configurations.jobs }}"
+  tags: debug
+  when: app_jobs_enable
+
 - name: Set app_pension_jobs configuration with predefined variables
   tags: configuration
   when: app_jobs_enable and app_jobs_auto_sync_in_enable
@@ -29,11 +35,23 @@
       'fill_queue_interval_in_seconds': app_pension_jobs_fill_queue_interval_in_seconds,
       'process_queue_package_interval_in_seconds': app_pension_jobs_process_queue_package_interval_in_seconds}) }}"
   
+- name: Display app_pension_jobs
+  debug:
+    msg: "app_pension_jobs: {{ app_pension_jobs }}"
+  tags: debug
+  when: app_jobs_enable and app_jobs_auto_sync_in_enable
+
 - name: Add Jobs config into app_configurations.pension
   ansible.builtin.set_fact:
     app_configurations:
       "{{ app_configurations | combine({'pension': app_configurations.pension | combine({'jobs': app_pension_jobs})}) }}"
   tags: configuration
+  when: app_jobs_enable
+
+- name: Display app_configurations.pension.jobs
+  debug:
+    msg: "app_configurations.pension.jobs: {{ app_configurations.pension.jobs }}"
+  tags: debug
   when: app_jobs_enable
 
 - name: Copy config files
@@ -45,7 +63,6 @@
     mode: "0640"
   notify: restart pension
   tags: installation
-  no_log: true
 
 - name: Copy config.json
   ansible.builtin.template:
@@ -56,7 +73,7 @@
     mode: "0640"
   notify: restart pension
   tags: configuration
-  no_log: true
+  no_log: "{{ 'all' not in ansible_run_tags and 'debug' not in ansible_run_tags }}"
 
 - name: AWS credentials config
   ansible.builtin.include_role:

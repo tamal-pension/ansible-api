@@ -10,7 +10,7 @@
   "replication": {{ app_configurations.replication | to_nice_json | indent(2) }},
   "cluster": {
   },
-{% if app_configurations.user is defined %}
+{% if app_configurations.jobs is defined %}
   "jobs": {{ app_configurations.jobs | to_nice_json | indent(2) }},
 {% endif %}
   "metrics": {
