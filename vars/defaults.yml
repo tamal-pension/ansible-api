@@ -1,6 +1,4 @@
 ---
-discord_webhook: https://discord.com/api/webhooks/{{ discord_message_webhook_id }}/{{ discord_message_webhook_token }}
-discord_channel: "#notifications"
 private_ip: "{{ ansible_default_ipv4.address }}"
 loki_base_url: "http://loki.{{ private_domain }}:3100"
 app_user: pension
@@ -12,7 +10,6 @@ users:
     group: "{{ app_group }}"
     append: true
     create_home: false
-    shell: /sbin/nologin
 consul_template_service_start_and_enable: false
 consul_service_start_and_enable: false
 aws_iam_role: "api-role"
