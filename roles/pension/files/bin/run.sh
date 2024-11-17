@@ -12,6 +12,7 @@ JAR="$LIB_DIR/pension-api-fat.jar"
 CONF="$CONFIG_DIR/config.json"
 LOG="$CONFIG_DIR/log4j2.xml"
 OPTIONS="$CONFIG_DIR/options.json"
+CLUSTER_CONFIG="$CONFIG_DIR/cluster.xml"
 
 # JMX configuration
 JMX_PORT=7777
@@ -21,6 +22,12 @@ JMX_DOMAIN="pension"
 LOGGING_OPTS=(
   "-Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.Log4j2LogDelegateFactory"
   "-Dlog4j.configurationFile=$LOG"
+)
+
+# Hazelcast-specific JVM options
+HAZELCAST_OPTS=(
+  "-Dhazelcast.config=$CLUSTER_CONFIG"
+  "-Dhazelcast.logging.type=log4j2"
 )
 
 # General JVM options
@@ -53,11 +60,12 @@ MODULE_OPTS=(
 cd "$APP_HOME"
 
 # Echo JVM options for debugging
-echo "JVM Options: ${LOGGING_OPTS[@]} ${METRICS_OPTS[@]} ${GENERAL_OPTS[@]} ${JMX_OPTS[@]}"
+echo "JVM Options: ${LOGGING_OPTS[@]} ${HAZELCAST_OPTS[@]} ${GENERAL_OPTS[@]} ${JMX_OPTS[@]}"
 
 # Run the Java application
 java \
   ${LOGGING_OPTS[@]} \
+  ${HAZELCAST_OPTS[@]} \
   ${GENERAL_OPTS[@]} \
   ${JMX_OPTS[@]} \
   ${MODULE_OPTS[@]} \
