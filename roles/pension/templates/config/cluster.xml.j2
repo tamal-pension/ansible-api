@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+           http://www.hazelcast.com/schema/config/hazelcast-config-5.3.xsd">
+
+  <properties>
+    <property name="hazelcast.jet.enabled">true</property>
+    <property name="hazelcast.logging.type">log4j2</property>
+  </properties>
+  <network>
+    <reuse-address>true</reuse-address>
+    <outbound-ports>
+      <ports>{{ hz_outbound_ports_range }}</ports>
+    </outbound-ports>
+    <join>
+      <multicast enabled="{{ hz_multicast_enabled | lower }}" />
+      <tcp-ip enabled="false" />
+{% if hz_ec2 is defined %}
+      <aws enabled="true">
+{% if hz_ec2.tag_key is defined %}
+        <tag-key>{{ hz_ec2.tag_key }}</tag-key>
+{% endif %}
+{% if hz_ec2.tag_value is defined %}
+        <tag-value>{{ hz_ec2.tag_value }}</tag-value>
+{% endif %}
+{% if hz_ec2.iam_role is defined %}
+        <iam-role>{{ hz_ec2.iam_role }}</iam-role>
+{% endif %}
+      </aws>
+{% endif %}
+    </join>
+{% if hz_interfaces is defined %}
+    <interfaces enabled="true">
+{% for interface in hz_interfaces %}
+      <interface>{{ interface }}</interface>
+{% endfor %}
+    </interfaces>
+{% endif %}
+  </network>
+
+  <multimap name="__vertx.subs">
+    <backup-count>1</backup-count>
+    <value-collection-type>SET</value-collection-type>
+  </multimap>
+
+  <map name="__vertx.haInfo">
+    <backup-count>1</backup-count>
+  </map>
+
+  <map name="__vertx.nodeInfo">
+    <backup-count>1</backup-count>
+  </map>
+
+  <cp-subsystem>
+    <cp-member-count>0</cp-member-count>
+    <semaphores>
+      <semaphore>
+        <name>__vertx.*</name>
+        <jdk-compatible>false</jdk-compatible>
+        <initial-permits>1</initial-permits>
+      </semaphore>
+    </semaphores>
+  </cp-subsystem>
+
+</hazelcast>

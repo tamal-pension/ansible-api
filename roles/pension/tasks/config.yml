@@ -75,6 +75,17 @@
   tags: configuration
   no_log: "{{ 'all' not in ansible_run_tags and 'debug' not in ansible_run_tags }}"
 
+- name: Copy cluster.xml to app folder
+  ansible.builtin.template: 
+    src: 'config/cluster.xml.j2'
+    dest: '{{ app_config_path }}/cluster.xml'
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0640"
+  notify: restart pension
+  tags: configuration
+  no_log: "{{ 'all' not in ansible_run_tags and 'debug' not in ansible_run_tags }}"
+
 - name: AWS credentials config
   ansible.builtin.include_role:
     name: inqwise.common.aws_utils

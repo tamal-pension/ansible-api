@@ -269,3 +269,7 @@ app_configurations:
       vfs:
         destination-base-path: "s3:///"
         files-path: "/replication-{{ environment_name }}/rep-files"
+
+
+hz_multicast_enabled: false
+hz_outbound_ports_range: 33000-33500

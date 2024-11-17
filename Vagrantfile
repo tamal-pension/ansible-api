@@ -72,6 +72,7 @@ Vagrant.configure("2") do |config|
       app: "pension-api",
       private_dns: "pension-api-test-#{Etc.getpwuid(Process.uid).name}",
       jobs_enable: "false",
+      cluster_name: "pension-api-v2-test"
     }
   end
 end
