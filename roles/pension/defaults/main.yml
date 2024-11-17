@@ -28,7 +28,11 @@ app_api_admin:
   app.http.address.external: "{{ admin_http_address_external }}"
   app_tag_header: true
   cors:
-    allowed_origins: "{{ admin_cors_allowed_origins }}"
+    allowed_origins:
+      - "https://admin.{{ app_public_domain }}"
+    exposed_headers:
+      - Content-Disposition
+    allow_credentials: true
   auth:
     oauth:
       default:
@@ -41,7 +45,7 @@ app_api_user:
   token_expiration: 10
   app_tag_header: true
   cors:
-    allowed_origins: "{{ front_cors_allowed_origins }}"
+    allowed_origins: "{{ admin_cors_allowed_origins }}"
 
 app_jobs:
   _sync_interval: 45
