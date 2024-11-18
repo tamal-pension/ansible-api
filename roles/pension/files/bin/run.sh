@@ -26,7 +26,7 @@ LOGGING_OPTS=(
 
 # Hazelcast-specific JVM options
 HAZELCAST_OPTS=(
-  "-Dhazelcast.config=$CLUSTER_CONFIG"
+  "-Dvertx.hazelcast.config=$CLUSTER_CONFIG"
   "-Dhazelcast.logging.type=log4j2"
 )
 
