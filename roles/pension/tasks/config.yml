@@ -75,7 +75,7 @@
   tags: configuration
   no_log: "{{ 'all' not in ansible_run_tags and 'debug' not in ansible_run_tags }}"
 
-- name: Copy cluster.xml to app folder
+- name: Copy cluster.xml
   ansible.builtin.template: 
     src: 'config/cluster.xml.j2'
     dest: '{{ app_config_path }}/cluster.xml'

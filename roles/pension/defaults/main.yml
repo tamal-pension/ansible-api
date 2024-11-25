@@ -18,9 +18,10 @@ app_jobs_auto_sync_in_enable: true
 
 app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
+app_api_admin_access_header_name: x-inqwise 
 
 app_api_admin:
-  access_header_name: x-inqwise
+  access_header_name: "{{ app_api_admin_access_header_name }}"
   port: 8082
   display_stack: true
   ip_array: "{{ app_admin_ips }}"

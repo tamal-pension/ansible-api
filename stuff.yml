@@ -19,7 +19,7 @@
       logger_filename: "app_logger_filename"
       marketing_mock: "app_marketing_mock"
       cluster_name: "cluster_name"
-      cluster_ports_range: "cluster_ports_range" 
+      access_header_name: "app_api_admin_access_header_name"
 
 - name: Java role
   ansible.builtin.include_role:
