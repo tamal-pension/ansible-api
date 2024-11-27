@@ -19,6 +19,15 @@
   notify: restart pension
   tags: installation
 
+- name: Copy c3p0 config
+  ansible.builtin.copy:
+    src: c3p0-config.xml
+    dest: "{{ app_lib_path }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0750"
+  tags: installation
+
 - name: Copy keystore file with read-only permission
   ansible.builtin.get_url:
     url: "{{ internal_base_url }}/keystore/keystore.jceks"
