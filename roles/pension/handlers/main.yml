@@ -2,7 +2,7 @@
 
 - name: restart pension
   ansible.builtin.service:
-    name: "{{ app_service_name }}"
+    name: "pension"
     state: restarted
     enabled: true
   when: app_service_start_and_enable
