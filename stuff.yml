@@ -15,7 +15,7 @@
       jobs_enable: "app_jobs_enable"
       jobs_auto_sync_in_enable: "app_jobs_auto_sync_in_enable"
       api_enable: "app_api_enable"
-      app_name: "pension_app_name"
+      app_name: "app_name"
       logger_filename: "app_logger_filename"
       marketing_mock: "app_marketing_mock"
       cluster_name: "cluster_name"
@@ -39,7 +39,6 @@
   vars:
     discord_webhook: "{{ discord_webhooks[webhook_key | default('apilog')] | default(discord_webhooks.default) }}"
     hz_outbound_ports_range: "{{ cluster_ports_range | default('33000-33500') }}"
-    app_name: "{{ pension_app_name }}"
     hz_ec2:
       tag_key: "cluster_name"
       tag_value: "{{ cluster_name }}"
