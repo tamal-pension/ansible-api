@@ -10,7 +10,7 @@ TOPIC_NAME = "pre_playbook_errors"
 ACCOUNT_ID = "339712742264"
 AWS_REGION = "eu-west-1"
 MAIN_SH_ARGS = <<MARKER
--e "playbook_name=ansible-api discord_message_owner_name=#{Etc.getpwuid(Process.uid).name} environment_id=pension-stg.local" --tags "installation,configuration,debug"
+-e "discord_message_owner_name=#{Etc.getpwuid(Process.uid).name} environment_id=pension-stg.local" --tags "installation,configuration,debug"
 MARKER
 Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL  
@@ -72,7 +72,8 @@ Vagrant.configure("2") do |config|
       app: "pension-api",
       private_dns: "pension-api-test-#{Etc.getpwuid(Process.uid).name}",
       jobs_enable: "false",
-      cluster_name: "pension-api-v2-test"
+      cluster_name: "pension-api-v2-test",
+      app_name: "pension-jobs"
     }
   end
 end

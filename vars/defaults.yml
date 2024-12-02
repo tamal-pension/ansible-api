@@ -13,3 +13,7 @@ users:
 consul_template_service_start_and_enable: false
 consul_service_start_and_enable: false
 aws_iam_role: "api-role"
+telegraf_name: "api"
+telegraf_config_filename: "{{ telegraf_name }}-telegraf.config"
+telegraf_last: true
+skip_extend_os_family: true

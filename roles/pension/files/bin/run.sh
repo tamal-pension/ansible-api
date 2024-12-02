@@ -34,7 +34,7 @@ HAZELCAST_OPTS=(
 GENERAL_OPTS=(
   "-XX:+HeapDumpOnOutOfMemoryError"
   "-XX:+ShowCodeDetailsInExceptionMessages"
-  "-Dhttp.maxConnections=200"
+  "-Dhttp.maxConnections=5000"
 )
 
 # JMX-specific JVM options
