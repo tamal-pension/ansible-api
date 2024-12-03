@@ -15,7 +15,9 @@ app_jobs_enable: true
 app_api_enable: true
 app_marketing_mock: false
 app_jobs_auto_sync_in_enable: true
-
+app_http_maxConnections: 5000
+#app_java_min_memory: "8G"
+#app_java_max_memory: "8G"
 app_jceks_keystore_filename: "keystore.jceks"
 app_jceks_keystore_path: "{{ app_config_path }}/{{ app_jceks_keystore_filename }}"
 app_api_admin_access_header_name: x-inqwise 

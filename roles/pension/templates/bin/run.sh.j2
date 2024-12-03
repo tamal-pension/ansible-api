@@ -34,7 +34,13 @@ HAZELCAST_OPTS=(
 GENERAL_OPTS=(
   "-XX:+HeapDumpOnOutOfMemoryError"
   "-XX:+ShowCodeDetailsInExceptionMessages"
-  "-Dhttp.maxConnections=5000"
+  "-Dhttp.maxConnections={{ app_http_maxConnections }}"
+  {% if app_java_max_memory is defined %}
+    "-Xmx{{ app_java_max_memory }}"
+  {% endif %}
+  {% if app_java_min_memory is defined %}
+    "-Xms{{ app_java_max_memory }}"
+  {% endif %}
 )
 
 # JMX-specific JVM options

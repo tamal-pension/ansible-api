@@ -1,11 +1,10 @@
 ---
-
-- name: Copy bin files
-  ansible.builtin.copy:
-    src: bin/
-    dest: "{{ app_bin_path }}"
+- name: Copy run.sh
+  ansible.builtin.template:
+    src: "bin/run.sh.j2"
+    dest: "{{ app_bin_path }}/run.sh"
     owner: "{{ app_user }}"
     group: "{{ app_group }}"
     mode: "0755"
   notify: restart pension
-  tags: installation
+  tags: configuration

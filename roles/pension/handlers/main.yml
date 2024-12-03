@@ -1,10 +1,11 @@
 ---
 
-- name: restart pension
+- name: Restart pension
   ansible.builtin.service:
-    name: "pension"
+    name: "{{ app_service_name }}"
     state: restarted
     enabled: true
+  listen: "restart pension"
   when: app_service_start_and_enable
 
 - name: Check api is started properly
