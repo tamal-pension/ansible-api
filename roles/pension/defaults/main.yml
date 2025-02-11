@@ -103,6 +103,7 @@ app_configurations:
     _cyberark:
       base-url: "http://example.com"
     _vfs: {}
+    _jacob_test: jacob_test
     dao:
       main:
         url: "{{ app_dao_main.url }}"
