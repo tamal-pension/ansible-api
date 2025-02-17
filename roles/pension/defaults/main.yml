@@ -103,7 +103,6 @@ app_configurations:
     _cyberark:
       base-url: "http://example.com"
     _vfs: {}
-    _jacob_test: jacob_test
     dao:
       main:
         url: "{{ app_dao_main.url }}"
@@ -189,6 +188,9 @@ app_configurations:
         - type: mesakem
           version: "4"
           file: mesakem/Mimshak_Mesakem_XSD_Schema_v4.xsd
+        - type: mesakem
+          version: "5"
+          file: mesakem/Mimshak_Mesakem_XSD_Schema_v5.xsd        
         - type: yearly
           version: "1"
           file: yearly/Mimshak_Mesakem_Shnati_XSD_Schema_v1.xsd
@@ -202,8 +204,11 @@ app_configurations:
           version: "97"
           file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v3.xsd
         - type: shotef
-          version: "4"
+          version: "96"
           file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v4.xsd
+        - type: shotef
+          version: "5"
+          file: shotef/Mimshak_Maasikim_Shotef_XSD_Schema_v5.xsd
         - type: negative
           version: "99"
           file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v1.xsd
@@ -214,8 +219,11 @@ app_configurations:
           version: "97"
           file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v3.xsd
         - type: negative
-          version: "4"
+          version: "96"
           file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v4.xsd
+        - type: negative
+          version: "5"
+          file: negative/Mimshak_Maasikim_Shliliim_XSD_Schema_v5.xsd
         - type: event
           version: "6"
           file: event/MivneAchid_Incoming_Events_XSD_v6.xsd
@@ -227,9 +235,15 @@ app_configurations:
         - type: shotef
           version: "4"
           class: com.tamal.pension.common.jaxb.shotef.ShotefV04Model
+        - type: shotef
+          version: "5"
+          class: com.tamal.pension.common.jaxb.shotef.ShotefV05Model
         - type: negative
           version: "4"
           class: com.tamal.pension.common.jaxb.negative.NegativeV04Model
+        - type: negative
+          version: "5"
+          class: com.tamal.pension.common.jaxb.negative.NegativeV05Model
         - type: mesakem
           version: "2"
           class: com.tamal.pension.common.jaxb.mesakem.MesakemV02Model
@@ -239,6 +253,9 @@ app_configurations:
         - type: mesakem
           version: "4"
           class: com.tamal.pension.common.jaxb.mesakem.MesakemV04Model
+        - type: mesakem
+          version: "5"
+          class: com.tamal.pension.common.jaxb.mesakem.MesakemV05Model
         - type: first
           version: "7"
           class: com.tamal.pension.common.jaxb.first.FirstV06Model
